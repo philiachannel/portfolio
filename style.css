@@ -49,7 +49,7 @@ section{padding:5rem 1.5rem}
 .hero-bg{
   position:absolute;
   inset:0;
-  background-image:url('images/hero-bg.jpg');
+  background-image:url('images/hero-bg.png');
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
