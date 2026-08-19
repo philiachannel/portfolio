@@ -3,504 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ポートフォリオ</title>
+<meta name="description" content="Python・VBA・GASによる業務自動化のフリーランスエンジニアのポートフォリオ">
+<title>Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --surface2: #f9f8f5;
-    --border: #e4e2db;
-    --text-primary: #1c1b18;
-    --text-secondary: #5a5852;
-    --text-muted: #9a9890;
-    --accent: #2563eb;
-    --accent-bg: #eff4ff;
-    --accent-text: #1e40af;
-    --radius: 12px;
-    --font: 'Noto Sans JP', sans-serif;
-  }
-
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text-primary);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
-  .wrapper {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  /* ---- HEADER ---- */
-  .site-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  .site-header .eyebrow {
-    font-size: 11px;
-    letter-spacing: .12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: .5rem;
-  }
-  .site-header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -.02em;
-  }
-  .site-header .sub {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-top: .4rem;
-  }
-  .divider {
-    width: 40px;
-    height: 2px;
-    background: var(--accent);
-    border-radius: 2px;
-    margin: 1rem auto 0;
-  }
-
-  /* ---- CARD ---- */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    animation: fadeUp .4s ease both;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .card-top {
-    padding: 1.5rem 1.75rem 1.25rem;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--accent-bg);
-    color: var(--accent-text);
-    font-size: 11px;
-    font-weight: 500;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: .5rem;
-  }
-  .card-title {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -.01em;
-    line-height: 1.3;
-  }
-  .card-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: .3rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .page-counter {
-    font-size: 12px;
-    color: var(--text-muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: .25rem;
-  }
-
-  /* ---- IMAGE ---- */
-  .img-area {
-    height: 200px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-  .img-area img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .img-placeholder {
-    text-align: center;
-    color: var(--text-muted);
-  }
-  .img-placeholder svg {
-    width: 36px;
-    height: 36px;
-    margin-bottom: .5rem;
-    opacity: .4;
-  }
-  .img-placeholder p {
-    font-size: 12px;
-  }
-
-  /* ---- BODY ---- */
-  .card-body {
-    padding: 1.5rem 1.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: .6rem;
-  }
-
-  /* flowchart */
-  .flow {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .flow-step {
-    background: var(--accent-bg);
-    border: 1px solid #bfdbfe;
-    color: var(--accent-text);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-  }
-  .flow-arrow {
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1;
-  }
-
-  /* desc */
-  .desc {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.8;
-  }
-
-  /* tags */
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .tag {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text-secondary);
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  /* ---- NAV ---- */
-  .nav {
-    padding: 1rem 1.75rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--surface2);
-  }
-  .nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font);
-    font-size: 13px;
-    padding: 7px 16px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: background .15s, border-color .15s;
-  }
-  .nav-btn:hover:not(:disabled) {
-    background: var(--accent-bg);
-    border-color: #bfdbfe;
-    color: var(--accent-text);
-  }
-  .nav-btn:disabled {
-    opacity: .35;
-    cursor: default;
-  }
-  .dots {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-  }
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--border);
-    transition: background .2s, transform .2s;
-    cursor: pointer;
-  }
-  .dot.active {
-    background: var(--accent);
-    transform: scale(1.4);
-  }
-
-  /* ---- FOOTER ---- */
-  .site-footer {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  @media (max-width: 480px) {
-    .card-top { flex-direction: column; gap: .5rem; }
-    .card-body { padding: 1.25rem; }
-    .card-title { font-size: 17px; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrapper">
 
-  <header class="site-header">
-    <p class="eyebrow">Portfolio</p>
-    <h1>作品集</h1>
-    <p class="sub">Python・VBA・GASによる業務自動化ツール</p>
-    <div class="divider"></div>
-  </header>
-
-  <div class="card" id="card">
-    <div class="card-top">
-      <div>
-        <div class="badge" id="badge">● Python</div>
-        <div class="card-title" id="title">作品タイトル</div>
-        <div class="card-date" id="date">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          <span id="date-text">YYYY年MM月</span>
-        </div>
-      </div>
-      <div class="page-counter" id="counter">1 / 10</div>
-    </div>
-
-    <div class="img-area" id="img-area">
-      <div class="img-placeholder">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        <p>作品のスクリーンショット</p>
-      </div>
-    </div>
-
-    <div class="card-body">
-      <div>
-        <div class="section-label">フローチャート</div>
-        <div class="flow" id="flow"></div>
-      </div>
-      <div>
-        <div class="section-label">説明</div>
-        <div class="desc" id="desc"></div>
-      </div>
-      <div>
-        <div class="section-label">使用言語・ツール</div>
-        <div class="tags" id="tags"></div>
-      </div>
-    </div>
-
-    <div class="nav">
-      <button class="nav-btn" id="prev-btn" onclick="changePage(-1)">
-        &#8592; 前へ
-      </button>
-      <div class="dots" id="dots"></div>
-      <button class="nav-btn" id="next-btn" onclick="changePage(1)">
-        次へ &#8594;
-      </button>
-    </div>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Portfolio</a>
+  <ul class="nav-links">
+    <li><a href="#profile">プロフィール</a></li>
+    <li><a href="#skill">スキル</a></li>
+    <li><a href="#works">作品</a></li>
+    <li><a href="#contact">連絡先</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+    <span></span><span></span><span></span>
   </div>
-
-  <footer class="site-footer">
-    <p>データは portfolio.js の <code>PAGES</code> 配列を編集して更新できます</p>
-  </footer>
-
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#profile" onclick="closeMenu()">プロフィール</a>
+  <a href="#skill" onclick="closeMenu()">スキル</a>
+  <a href="#works" onclick="closeMenu()">作品</a>
+  <a href="#contact" onclick="closeMenu()">連絡先</a>
 </div>
 
-<script>
-/* ============================================================
-   PAGES — ここを編集して作品データを追加してください
-   画像を使う場合は image に画像ファイルのパスを指定してください
-   例: image: 'images/work1.png'
-   ============================================================ */
-const PAGES = [
-  {
-    badge: 'Python',
-    title: '月次レポート自動化ツール',
-    date: '2025年04月',
-    image: 'images/プログラム制作_タイトル.png',
-    flow: ['Excelデータ読込', 'データ集計・加工', 'PDFレポート生成', 'メール自動送信'],
-    desc: '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
-    tags: ['Python', 'openpyxl', 'reportlab', 'smtplib']
-  },
-  {
-    badge: 'VBA',
-    title: 'Excel請求書一括作成マクロ',
-    date: '2025年02月',
-    image: '',
-    flow: ['顧客リスト読込', 'テンプレ複製', 'データ差込', 'PDF保存・出力'],
-    desc: '顧客マスタとテンプレートから請求書を一括生成するVBAマクロ。月30件の請求書作成が約3分で完了。ファイル名の自動命名・フォルダ振り分けも対応し、ヒューマンエラーをゼロにした。',
-    tags: ['VBA', 'Excel', 'PDF出力']
-  },
-  {
-    badge: 'GAS',
-    title: 'Googleフォーム自動集計システム',
-    date: '2024年12月',
-    image: '',
-    flow: ['フォーム回答受信', 'スプレッドシート集計', 'グラフ自動更新', 'Slack通知送信'],
-    desc: 'アンケートフォームの回答を自動集計し、グラフ付きのサマリーをSlackへ通知するGASシステム。集計の手作業をゼロにし、リアルタイムで結果を共有できる体制を構築した。',
-    tags: ['GAS', 'Googleフォーム', 'スプレッドシート', 'Slack']
-  },
-  /* ---- 作品4〜10はここに追加 ---- */
-  {
-    badge: '作品4',
-    title: '作品タイトル4',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品5',
-    title: '作品タイトル5',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品6',
-    title: '作品タイトル6',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品7',
-    title: '作品タイトル7',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品8',
-    title: '作品タイトル8',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品9',
-    title: '作品タイトル9',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-  {
-    badge: '作品10',
-    title: '作品タイトル10',
-    date: '2024年XX月',
-    image: '',
-    flow: ['ステップ1', 'ステップ2', 'ステップ3'],
-    desc: 'ここに説明を入力してください。',
-    tags: ['言語/ツール']
-  },
-];
+<main>
 
-/* ---- ここから下は編集不要 ---- */
-let cur = 0;
-const total = PAGES.length;
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay" id="hero-overlay"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Freelance Engineer</p>
+      <h1 class="hero-name">業務自動化の<br><span>専門家</span></h1>
+      <p class="hero-sub">Python・VBA・GASを使って、面倒な繰り返し作業をコードで解決します。</p>
+      <div class="hero-tags">
+        <span class="hero-tag">Python</span>
+        <span class="hero-tag">VBA</span>
+        <span class="hero-tag">GAS</span>
+        <span class="hero-tag">業務自動化</span>
+        <span class="hero-tag">フリーランス</span>
+      </div>
+      <div>
+        <a href="#works" class="btn">作品を見る</a>
+        <a href="#contact" class="btn btn-outline">連絡する</a>
+      </div>
+    </div>
+    <!-- 透明度スライダー（開発・調整用。本番では削除してもOK） -->
+    <div class="hero-opacity-ctrl">
+      <label for="opacity-slider">背景の暗さ：<span id="opacity-label">55%</span></label>
+      <input type="range" id="opacity-slider" min="0" max="1" step="0.05" value="0.55">
+    </div>
+  </section>
 
-function buildDots() {
-  const el = document.getElementById('dots');
-  el.innerHTML = '';
-  PAGES.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === cur ? ' active' : '');
-    d.onclick = () => { cur = i; render(); };
-    el.appendChild(d);
-  });
-}
+  <!-- PROFILE -->
+  <section id="profile">
+    <div class="inner">
+      <p class="sec-label">About</p>
+      <h2 class="sec-title">プロフィール</h2>
+      <div class="sec-divider"></div>
+      <div class="profile-grid">
+        <div>
+          <!-- 画像あり: <img src="images/profile.jpg" alt="プロフィール写真" class="profile-img"> -->
+          <!-- 推奨サイズ: 400×400px -->
+          <div class="profile-img-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>400×400px</span>
+          </div>
+        </div>
+        <div>
+          <div class="profile-name">お名前</div>
+          <div class="profile-en">Your Name</div>
+          <p class="profile-bio">
+            Python・VBA・GASを中心に業務効率化・自動化ツールの開発を行うフリーランスエンジニアです。
+            ExcelやGoogleスプレッドシートの自動化、定型業務のスクリプト化、データ集計・レポート作成の自動化など幅広く対応しています。
+            中小企業の業務改善に寄り添ったご提案が得意です。お気軽にご相談ください。
+          </p>
+          <div class="profile-links">
+            <a href="https://github.com/（ユーザー名）" class="profile-link" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+              GitHub
+            </a>
+            <a href="https://zenn.dev/（ユーザー名）" class="profile-link" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.264 23.771h4.984c.264 0 .498-.147.645-.352L19.614.874c.176-.293-.029-.645-.381-.645h-4.72c-.235 0-.44.117-.557.323L.03 23.361c-.088.176.029.41.234.41zM17.445 23.419l6.479-10.408c.205-.323-.029-.733-.41-.733h-4.691c-.205 0-.41.117-.527.294l-6.655 10.672c-.176.264.029.586.351.586h4.982c.264 0 .499-.147.47-.41z"/></svg>
+              Zenn
+            </a>
+            <a href="https://x.com/（ユーザー名）" class="profile-link" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+              X
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-function render() {
-  const p = PAGES[cur];
-  const card = document.getElementById('card');
-  card.style.animation = 'none';
-  void card.offsetWidth;
-  card.style.animation = 'fadeUp .4s ease both';
+  <!-- SKILL -->
+  <section id="skill">
+    <div class="inner">
+      <p class="sec-label">Skills</p>
+      <h2 class="sec-title">スキル</h2>
+      <div class="sec-divider"></div>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-icon py">🐍</div>
+            <div class="skill-name">Python</div>
+          </div>
+          <ul class="skill-items">
+            <li>データ集計・加工・分析</li>
+            <li>業務自動化スクリプト</li>
+            <li>PDF・Excel操作</li>
+            <li>スクレイピング</li>
+            <li>メール自動送信</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-icon vb">📊</div>
+            <div class="skill-name">VBA</div>
+          </div>
+          <ul class="skill-items">
+            <li>Excel業務自動化</li>
+            <li>マクロ開発・修正</li>
+            <li>帳票・請求書作成</li>
+            <li>Access連携</li>
+            <li>PDF出力</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-head">
+            <div class="skill-icon ga">⚡</div>
+            <div class="skill-name">GAS</div>
+          </div>
+          <ul class="skill-items">
+            <li>スプレッドシート自動化</li>
+            <li>Gmail自動送受信</li>
+            <li>Googleフォーム集計</li>
+            <li>Slack・LINE連携</li>
+            <li>カレンダー操作</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  document.getElementById('badge').textContent = '● ' + p.badge;
-  document.getElementById('title').textContent = p.title;
-  document.getElementById('date-text').textContent = p.date;
-  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
-  document.getElementById('desc').textContent = p.desc;
+  <!-- WORKS -->
+  <section id="works">
+    <div class="inner">
+      <p class="sec-label">Works</p>
+      <h2 class="sec-title">作品一覧</h2>
+      <div class="sec-divider"></div>
+      <div class="works-nav">
+        <button class="filter-btn active" onclick="filter('all',this)">すべて</button>
+        <button class="filter-btn" onclick="filter('Python',this)">Python</button>
+        <button class="filter-btn" onclick="filter('VBA',this)">VBA</button>
+        <button class="filter-btn" onclick="filter('GAS',this)">GAS</button>
+      </div>
+      <div class="works-grid" id="works-grid"></div>
+    </div>
+  </section>
 
-  const imgArea = document.getElementById('img-area');
-  if (p.image) {
-    imgArea.innerHTML = '<img src="' + p.image + '" alt="' + p.title + '">';
-  } else {
-    imgArea.innerHTML = '<div class="img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><p>作品のスクリーンショット</p></div>';
-  }
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="inner">
+      <p class="sec-label">Contact</p>
+      <h2 class="sec-title">連絡先</h2>
+      <div class="sec-divider"></div>
+      <div class="contact-card">
+        <p style="font-size:14px;color:var(--text2)">業務自動化・ツール開発のご相談はお気軽にどうぞ！</p>
+        <div class="contact-items">
+          <a href="mailto:your-email@example.com" class="contact-item">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
+            your-email@example.com
+          </a>
+          <a href="https://crowdworks.jp/public/employees/（ID）" class="contact-item" target="_blank">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/></svg></div>
+            クラウドワークス
+          </a>
+          <a href="https://www.lancers.jp/profile/（ユーザー名）" class="contact-item" target="_blank">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+            ランサーズ
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  const flow = document.getElementById('flow');
-  flow.innerHTML = p.flow.map((s, i) =>
-    '<span class="flow-step">' + s + '</span>' +
-    (i < p.flow.length - 1 ? '<span class="flow-arrow">&#8594;</span>' : '')
-  ).join('');
+</main>
 
-  const tags = document.getElementById('tags');
-  tags.innerHTML = p.tags.map(t => '<span class="tag">' + t + '</span>').join('');
+<footer>
+  <p>&copy; 2025 Your Name. All rights reserved.</p>
+</footer>
 
-  document.getElementById('prev-btn').disabled = cur === 0;
-  document.getElementById('next-btn').disabled = cur === total - 1;
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="work-badge" id="m-badge"></div>
+        <div style="font-size:18px;font-weight:700;margin-top:.3rem" id="m-title"></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:.2rem" id="m-date"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalBtn()">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-media" id="m-media"></div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">フローチャート</div>
+        <div class="flow" id="m-flow"></div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">説明</div>
+        <div class="modal-desc" id="m-desc"></div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">使用言語・ツール</div>
+        <div class="modal-tags" id="m-tags"></div>
+      </div>
+      <a href="#" class="modal-link" id="m-link" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHubで見る
+      </a>
+    </div>
+  </div>
+</div>
 
-  document.querySelectorAll('.dot').forEach((d, i) => {
-    d.className = 'dot' + (i === cur ? ' active' : '');
-  });
-}
-
-function changePage(dir) {
-  if (cur + dir < 0 || cur + dir >= total) return;
-  cur += dir;
-  render();
-}
-
-buildDots();
-render();
-</script>
+<script src="main.js"></script>
 </body>
 </html>
