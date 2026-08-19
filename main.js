@@ -9,23 +9,23 @@ const WORKS = [
     badge: 'Python',
     title: '月次レポート自動化ツール',
     date: '2025年04月',
-    image: '',
+    image: 'images/work1.png',
     youtube: '',
     flow: ['Excelデータ読込','データ集計・加工','PDFレポート生成','メール自動送信'],
     desc: '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
     tags: ['Python','openpyxl','reportlab','smtplib'],
-    github: 'https://github.com/（ユーザー名）/work-report'
+    github: 'https://github.com/philiachannel/work-report'
   },
   {
     badge: 'VBA',
     title: 'Excel請求書一括作成マクロ',
     date: '2025年02月',
     image: '',
-    youtube: 'dQw4w9WgXcQ',
+    youtube: '3jOSJ2cEcbA',
     flow: ['顧客リスト読込','テンプレ複製','データ差込','PDF保存・出力'],
     desc: '顧客マスタとテンプレートから請求書を一括生成するVBAマクロ。月30件の請求書作成が約3分で完了。ファイル名の自動命名・フォルダ振り分けも対応し、ヒューマンエラーをゼロにした。',
     tags: ['VBA','Excel','PDF出力'],
-    github: 'https://github.com/（ユーザー名）/work-invoice'
+    github: 'https://github.com/philiachannel/work-invoice'
   },
   {
     badge: 'GAS',
@@ -36,7 +36,7 @@ const WORKS = [
     flow: ['フォーム回答受信','スプレッドシート集計','グラフ自動更新','Slack通知送信'],
     desc: 'アンケートフォームの回答を自動集計し、グラフ付きのサマリーをSlackへ通知するGASシステム。集計の手作業をゼロにし、リアルタイムで結果を共有できる体制を構築した。',
     tags: ['GAS','Googleフォーム','スプレッドシート','Slack'],
-    github: 'https://github.com/（ユーザー名）/work-gas'
+    github: 'https://github.com/philiachannel/work-gas'
   },
   /* ---- 作品4以降をここに追加 ---- */
 ];
