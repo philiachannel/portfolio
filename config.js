@@ -25,7 +25,7 @@ const CONFIG = {
   /* 例: github: 'work-report'  →  https://github.com/philiachannel/work-report */
 
   /* ---- ヒーロー背景の初期透明度（0〜1） ---- */
-  heroOverlay: 0.55,
+  heroOverlay: 0.70,
 
   /* ---- ナビゲーションメニュー ---- */
   navItems: [
@@ -41,63 +41,80 @@ const CONFIG = {
   skills: {
     languages: [
       { name: 'Python',     years: 9, level: 5 },
-      { name: 'VBA',        years: 5, level: 5 },
-      { name: 'GAS',        years: 2, level: 4 },
-      { name: 'JavaScript', years: 3, level: 3 },
-      { name: 'HTML / CSS', years: 3, level: 3 },
+      { name: 'VBA',        years: 5, level: 4 },
+      { name: 'GAS',        years: 2, level: 3 },
+      { name: 'C/C++',      years: 5, level: 3 },
+      { name: 'JavaScript', years: 3, level: 2 },
+      { name: 'HTML / CSS', years: 3, level: 2 },
+      { name: 'SQL',        years: 9, level: 4 },
     ],
     tools: [
-      { name: 'Excel',            years: 20, level: 5 },
-      { name: 'Google Workspace', years: 5,  level: 4 },
-      { name: 'VS Code',          years: 3,  level: 4 },
-      { name: 'Git / GitHub',     years: 2,  level: 3 },
+      { name: 'Claude',     years: 1, level: 3 },
+      { name: 'Gemini',     years: 1, level: 3 },
+      { name: 'GPT',        years: 3, level: 3 },
+      { name: 'VOICEVOX',   years: 5, level: 5 },
+      { name: 'OpenVINO',   years: 3, level: 4 },
+      { name: 'Ultralytics',years: 3, level: 4 },
+      { name: 'Whisper',    years: 1, level: 3 },
     ],
     platforms: [
-      { name: 'Windows',       years: 15, level: 5 },
-      { name: 'GitHub Pages',  years: 1,  level: 3 },
-      { name: 'クラウドワークス', years: 2, level: 4 },
-      { name: 'ココナラ',       years: 1,  level: 3 },
+      { name: 'WindowsServer',    years: 9, level: 4 },
+      { name: 'LINUX',            years: 5, level: 3 },
+      { name: 'AWS',              years: 3, level: 2 },
+      { name: 'Azure',            years: 3, level: 2 },
+      { name: 'Google Workspace', years: 5, level: 3 },
+      { name: 'Git / GitHub',     years: 5, level: 2 },
     ],
   },
 
-  /* ---- 特技 ---- */
+  /* ---- 得意領域 ---- */
   strengths: [
     '業務フローの分析と自動化提案',
     '非エンジニア向けの分かりやすいツール設計',
-    '既存Excelシートの改修・高速化',
-    'ドキュメント・マニュアル作成',
+    '既存Excel・スプレッドシートの改修・効率化',
+    'マルチプラットフォーム・API連携のAIシステム開発',
   ],
 
-  /* ---- 趣味 ---- */
+  /* ---- 趣味・特技 ---- */
   hobbies: [
     'プログラミング',
-    'カナダ旅行・英語学習',
-    'Webデザイン',
-    'YouTube動画制作',
-    '読書（技術書・ビジネス書）',
+    'イラスト制作',
+    '回路設計',
+    'DIY',
+    '服飾リメイク',
+    'アクセサリー制作',
+    'ゴルフ',
+    'スノーボード',
+    'サーフィン',
+    'ボウリング',
   ],
 
   /* ---- ヒストリー ---- */
   history: [
     {
-      date:  '2007年02月',
-      title: 'カナダでワーキングホリデー',
-      desc:  'ワーホリビザで渡加。アクセサリーショップ等でバイト。カナダ生活を満喫。',
+      date:  '1999年',
+      title: 'ハードウェア保守エンジニア',
+      desc:  '大手メーカー等、複数企業でハードウェア保守に従事。<br>訪問対応でコミュニケーションスキルやハードウェアスキルを高める。',
     },
     {
-      date:  '2008年03月',
-      title: 'Webの専門学校に入学',
-      desc:  '有給インターンシップ付きの一年プログラムを受講。HTML、CSS、JavaScript、PHP等のコーディングやWebデザインの基礎を学ぶ。',
+      date:  '2012年',
+      title: 'システム保守エンジニア',
+      desc:  '大手企業で顧客向けインフラ・システム保守業務に従事。<br>リーダー・サーバー管理者を担当。<br>大規模インフラのサーバースキルや運用スキルを高める。',
     },
     {
-      date:  '2009年02月',
-      title: 'バンクーバーのWeb制作会社でWebデザイナーとして働く',
-      desc:  '私以外全員カナダ人という環境で英語やWebの技術を学びながら必死に働く。',
+      date:  '2017年',
+      title: 'AIと出会う',
+      desc:  '研修の一環でMicrosoft社の技術イベントに参加。<br>AIの現在と未来に底知れぬ興味を持ち始める。<br>独学でAIとpythonを学ぶ。',
     },
     {
-      date:  '2010年04月',
-      title: '帰国・フリーランスエンジニアとして独立',
-      desc:  '日本に帰国後、フリーランスとしてWeb制作・業務自動化ツール開発を開始。',
+      date:  '2021年',
+      title: 'AIエンジニアの道を目指す',
+      desc:  '退職し、職業訓練校に入校。<br>プログラミングを物理的な形として落とし込みができる、マイコンプログラムを学ぶ。',
+    },
+    {
+      date:  '2022年',
+      title: 'フリーランスエンジニアとして独立',
+      desc:  'AI開発・業務自動化ツール開発の活動を開始。<br>クラウドソーシングや直接契約で活動中。',
     },
     /* ---- 履歴を追加する場合はここに ---- */
   ],
@@ -109,10 +126,10 @@ const CONFIG = {
   works: [
     {
       badge:   'Python',
-      title:   '月次レポート自動化ツール',
-      date:    '2025年04月',
-      images:  ['images/work1.png'],
-      youtube: '',
+      title:   'AI秘書',
+      date:    '2026年04月',
+      images:  ['images/work/AI秘書/01.png', 'images/work/AI秘書/02.png'],
+      youtube: '3jOSJ2cEcbA',
       flow:    ['Excelデータ読込', 'データ集計・加工', 'PDFレポート生成', 'メール自動送信'],
       desc:    '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
       tags:    ['Python', 'openpyxl', 'reportlab', 'smtplib'],
