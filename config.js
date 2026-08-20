@@ -129,7 +129,10 @@ const CONFIG = {
       title:   'AI秘書',
       date:    '2026年04月',
       media: [
-        { type:'image', src:'images/work/ai_secretary/01.png', type:'image', src:'images/work/ai_secretary/02.png', type:'youtube', src:'3jOSJ2cEcbA' },
+         {type:'image', src:'images/work/ai_secretary/01.png'},
+         {type:'image', src:'images/work/ai_secretary/02.png'},
+         {type:'youtube', src:'3jOSJ2cEcbA'},
+         {type:'youtube', src:'W2LQ7bQ9jbQ'},
       ],
       flow:    ['Excelデータ読込', 'データ集計・加工', 'PDFレポート生成', 'メール自動送信'],
       desc:    '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
