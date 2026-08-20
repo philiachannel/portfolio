@@ -8,7 +8,7 @@ const CONFIG = {
   name:     'フィリアちゃんねる',
   nameEn:   'Philia Channel',
   bio:      'Python・VBA・GASを中心に業務効率化・自動化ツールの開発を行うフリーランスエンジニアです。ExcelやGoogleスプレッドシートの自動化、定型業務のスクリプト化、データ集計・レポート作成の自動化など幅広く対応しています。中小企業の業務改善に寄り添ったご提案が得意です。お気軽にご相談ください。',
-  email:    'your-email@example.com',
+  email:    'philiachannel@gmail.com',
   copyYear: '2026',
 
   /* ---- SNS・リンク（GitHubユーザー名を一箇所で管理） ---- */
@@ -20,12 +20,8 @@ const CONFIG = {
   crowdworksId: '5151248',
   coconalaId:   '3578031',
 
-  /* ---- 作品リポジトリのベースURL（githubUserから自動生成） ---- */
-  /* 各作品の github フィールドはリポジトリ名だけでOK                */
-  /* 例: github: 'work-report'  →  https://github.com/philiachannel/work-report */
-
   /* ---- ヒーロー背景の初期透明度（0〜1） ---- */
-  heroOverlay: 0.70,
+  heroOverlay: 0.55,
 
   /* ---- ナビゲーションメニュー ---- */
   navItems: [
@@ -120,38 +116,48 @@ const CONFIG = {
   ],
 
   /* ---- 作品データ ---- */
-  /* images: 複数画像をモーダルでスライド表示 ['images/a.png','images/b.png']  */
-  /* youtube: 動画IDを入れると優先表示。画像と排他            */
-  /* github: リポジトリ名だけ（例: 'work-report'）            */
+  /*
+    badges : 複数バッジ配列  例: ['Python','GAS']
+    media  : 画像・動画を混在可能な配列（順番通りにスライド表示）
+             { type:'image',   src:'images/work1.png' }
+             { type:'youtube', src:'動画ID'            }
+    github : リポジトリ名だけ（例: 'work-report'）
+  */
   works: [
     {
-      badge:   'Python',
+      badges:  ['Python'],
       title:   'AI秘書',
       date:    '2026年04月',
-      images:  ['images/work/ai_secretary/01.png', 'images/work/ai_secretary/02.png'],
-      youtube: '3jOSJ2cEcbA',
+      media: [
+        { type:'image', src:'images/work/ai_secretary/01.png', type:'image', src:'images/work/ai_secretary/02.png', type:'youtube', src:'3jOSJ2cEcbA' },
+      ],
       flow:    ['Excelデータ読込', 'データ集計・加工', 'PDFレポート生成', 'メール自動送信'],
       desc:    '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
       tags:    ['Python', 'openpyxl', 'reportlab', 'smtplib'],
       github:  'work-report',
     },
     {
-      badge:   'VBA',
+      badges:  ['VBA'],
       title:   'Excel請求書一括作成マクロ',
       date:    '2025年02月',
-      images:  [],
-      youtube: '*****',
+      media: [
+        { type: 'youtube', src: '*****' },
+        { type: 'image',   src: 'images/work2.png' },
+      ],
       flow:    ['顧客リスト読込', 'テンプレ複製', 'データ差込', 'PDF保存・出力'],
       desc:    '顧客マスタとテンプレートから請求書を一括生成するVBAマクロ。月30件の請求書作成が約3分で完了。ファイル名の自動命名・フォルダ振り分けも対応し、ヒューマンエラーをゼロにした。',
       tags:    ['VBA', 'Excel', 'PDF出力'],
       github:  'work-invoice',
     },
     {
-      badge:   'GAS',
+      badges:  ['Python', 'GAS'],
       title:   'Googleフォーム自動集計システム',
       date:    '2024年12月',
-      images:  [],
-      youtube: '',
+      media: [
+        { type: 'youtube', src: '動画ID1' },
+        { type: 'youtube', src: '動画ID2' },
+        { type: 'image',   src: 'images/work3.png' },
+      ],
       flow:    ['フォーム回答受信', 'スプレッドシート集計', 'グラフ自動更新', 'Slack通知送信'],
       desc:    'アンケートフォームの回答を自動集計し、グラフ付きのサマリーをSlackへ通知するGASシステム。集計の手作業をゼロにし、リアルタイムで結果を共有できる体制を構築した。',
       tags:    ['GAS', 'Googleフォーム', 'スプレッドシート', 'Slack'],
