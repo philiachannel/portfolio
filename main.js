@@ -109,40 +109,42 @@ renderSkill('languages');
 
 /* ---- 作品フィルターボタン生成 ---- */
 (function(){
-  var badges = ['all'].concat([...new Set(CONFIG.works.map(function(w){ return w.badge; }))]);
-  var labels = {all:'すべて'};
-  var html = badges.map(function(b){
-    return '<button class="filter-btn'+(b==='all'?' active':'')
-      +'" onclick="filter(\''+b+'\',this)">'+(labels[b]||b)+'</button>';
-  }).join('');
+  // badges配列の全バッジを重複なく収集
+  var allBadges = [];
+  CONFIG.works.forEach(function(w){
+    (w.badges || (w.badge ? [w.badge] : [])).forEach(function(b){
+      if(allBadges.indexOf(b) === -1) allBadges.push(b);
+    });
+  });
+  var html = '<button class="filter-btn active" onclick="filter(\'all\',this)">すべて</button>';
+  allBadges.forEach(function(b){
+    html += '<button class="filter-btn" onclick="filter(\''+b+'\',this)">'+b+'</button>';
+  });
   document.getElementById('works-filter').innerHTML = html;
 })();
 
-/* ---- 作品カード描画 ---- */
-const grid = document.getElementById('works-grid');
+/* ============================================================
+   メディアヘルパー
+   media配列: [{type:'image',src:'...'},{type:'youtube',src:'ID'}]
+   small=true : カードサムネ用（先頭1件のみ表示）
+   small=false: モーダル用（全件スライダー）
+   ============================================================ */
+function buildSlider(items, title){
+  if(items.length === 0){
+    return '<div class="modal-media-placeholder">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">'
+      + '<rect x="3" y="3" width="18" height="18" rx="2"/>'
+      + '<circle cx="8.5" cy="8.5" r="1.5"/>'
+      + '<path d="M21 15l-5-5L5 21"/></svg></div>';
+  }
+  if(items.length === 1) return buildSlideItem(items[0], title, false);
 
-function mediaThumb(w, small){
-  if(w.youtube){
-    if(small){
-      return '<div class="work-thumb-placeholder" style="background:#000;position:relative;height:100%">'
-        + '<img src="https://img.youtube.com/vi/'+w.youtube+'/mqdefault.jpg" style="width:100%;height:100%;object-fit:cover;opacity:.8">'
-        + '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">'
-        + '<div style="width:40px;height:40px;background:rgba(255,0,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center">'
-        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div></div>';
-    }
-    return '<iframe src="https://www.youtube.com/embed/'+w.youtube+'?rel=0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>';
-  }
-  var imgs = w.images || (w.image ? [w.image] : []);
-  if(imgs.length === 0){
-    return '<div class="'+(small?'work-thumb-placeholder':'modal-media-placeholder')+'">'
-      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>';
-  }
-  if(small) return '<img src="'+imgs[0]+'" alt="'+w.title+'">';
-  if(imgs.length === 1) return '<img src="'+imgs[0]+'" alt="'+w.title+'" style="width:100%;display:block">';
-  var slides = imgs.map(function(src,i){
-    return '<div class="slide'+(i===0?' active':'')+'" data-idx="'+i+'"><img src="'+src+'" alt="'+w.title+'"></div>';
+  var slides = items.map(function(m, i){
+    return '<div class="slide'+(i===0?' active':'')+'" data-idx="'+i+'">'
+      + buildSlideItem(m, title, false)
+      + '</div>';
   }).join('');
-  var dots = imgs.map(function(_,i){
+  var dots = items.map(function(_, i){
     return '<span class="sl-dot'+(i===0?' active':'')+'" onclick="slideTo('+i+')"></span>';
   }).join('');
   return '<div class="slider" id="modal-slider">'
@@ -153,9 +155,43 @@ function mediaThumb(w, small){
     + '</div>';
 }
 
+function buildSlideItem(m, title, small){
+  if(m.type === 'youtube'){
+    if(small){
+      // カードサムネ：YouTubeサムネ画像＋再生アイコン
+      return '<div class="work-thumb-placeholder" style="background:#000;position:relative;height:100%">'
+        + '<img src="https://img.youtube.com/vi/'+m.src+'/mqdefault.jpg"'
+        + ' style="width:100%;height:100%;object-fit:cover;opacity:.8">'
+        + '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">'
+        + '<div style="width:40px;height:40px;background:rgba(255,0,0,.85);border-radius:50%;display:flex;align-items:center;justify-content:center">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>'
+        + '</div></div></div>';
+    }
+    return '<iframe src="https://www.youtube.com/embed/'+m.src+'?rel=0" allowfullscreen'
+      + ' allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>';
+  }
+  // image
+  if(small) return '<img src="'+m.src+'" alt="'+title+'">';
+  return '<img src="'+m.src+'" alt="'+title+'" style="width:100%;display:block">';
+}
+
+function getThumbItem(w){
+  // カードサムネ用に先頭メディアを返す
+  var media = w.media || [];
+  // 旧形式互換
+  if(media.length === 0){
+    if(w.images && w.images.length > 0) media = w.images.map(function(s){ return {type:'image',src:s}; });
+    else if(w.youtube) media = [{type:'youtube',src:w.youtube}];
+  }
+  return media;
+}
+
+/* ---- スライダー操作 ---- */
 function slideTo(idx){
   var slider = document.getElementById('modal-slider');
   if(!slider) return;
+  // スライド内のiframeを停止（YouTube自動停止）
+  slider.querySelectorAll('iframe').forEach(function(f){ f.src = f.src; });
   var slides = slider.querySelectorAll('.slide');
   var dots   = slider.querySelectorAll('.sl-dot');
   slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
@@ -170,21 +206,35 @@ function slideStep(dir){
   slideTo((cur+dir+slides.length)%slides.length);
 }
 
+/* ---- 作品カード描画 ---- */
+const grid = document.getElementById('works-grid');
+
 function renderWorks(cat){
   grid.innerHTML = '';
-  CONFIG.works.filter(function(w){ return cat==='all'||w.badge===cat; }).forEach(function(w){
+  CONFIG.works.filter(function(w){
+    if(cat === 'all') return true;
+    var badges = w.badges || (w.badge ? [w.badge] : []);
+    return badges.indexOf(cat) !== -1;
+  }).forEach(function(w){
     var idx = CONFIG.works.indexOf(w);
     var a = document.createElement('a');
     a.className = 'work-card';
     a.href = '#';
     a.onclick = function(e){ e.preventDefault(); openModal(idx); };
-    var imgs = w.images||(w.image?[w.image]:[]);
-    var thumb = imgs.length>0 ? '<img src="'+imgs[0]+'" alt="'+w.title+'">'
-      : w.youtube ? mediaThumb(w,true)
+
+    var media = getThumbItem(w);
+    var thumb = media.length > 0
+      ? buildSlideItem(media[0], w.title, true)
       : '<div class="work-thumb-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>';
+
+    var badges = w.badges || (w.badge ? [w.badge] : []);
+    var badgeHTML = badges.map(function(b){
+      return '<span class="work-badge">'+b+'</span>';
+    }).join('');
+
     a.innerHTML = '<div class="work-thumb">'+thumb+'</div>'
       +'<div class="work-info">'
-      +'<div class="work-badge">'+w.badge+'</div>'
+      +'<div class="work-badge-wrap">'+badgeHTML+'</div>'
       +'<div class="work-title">'+w.title+'</div>'
       +'<div class="work-desc">'+w.desc+'</div>'
       +'<div class="work-tags">'+w.tags.map(function(t){ return '<span class="work-tag">'+t+'</span>'; }).join('')+'</div>'
@@ -202,12 +252,23 @@ function filter(cat, btn){
 /* ---- モーダル ---- */
 function openModal(i){
   var w = CONFIG.works[i];
-  document.getElementById('m-badge').textContent = w.badge;
+  var badges = w.badges || (w.badge ? [w.badge] : []);
+  document.getElementById('m-badge').innerHTML = badges.map(function(b){
+    return '<span class="work-badge" style="margin-right:4px">'+b+'</span>';
+  }).join('');
   document.getElementById('m-title').textContent = w.title;
   document.getElementById('m-date').textContent  = w.date;
   document.getElementById('m-desc').textContent  = w.desc;
-  document.getElementById('m-media').innerHTML   = mediaThumb(w, false);
-  document.getElementById('m-flow').innerHTML    = w.flow.map(function(s,idx){
+
+  // media配列を構築（旧形式互換）
+  var media = w.media || [];
+  if(media.length === 0){
+    if(w.images && w.images.length > 0) media = w.images.map(function(s){ return {type:'image',src:s}; });
+    else if(w.youtube) media = [{type:'youtube',src:w.youtube}];
+  }
+  document.getElementById('m-media').innerHTML = buildSlider(media, w.title);
+
+  document.getElementById('m-flow').innerHTML = w.flow.map(function(s,idx){
     return '<span class="flow-step">'+s+'</span>'+(idx<w.flow.length-1?'<span class="flow-arrow">→</span>':'');
   }).join('');
   document.getElementById('m-tags').innerHTML = w.tags.map(function(t){
@@ -226,8 +287,8 @@ function closeModal(e){
 function closeModalBtn(){
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
-  var iframe = document.querySelector('#m-media iframe');
-  if(iframe){ iframe.src = iframe.src; }
+  // モーダル内の全iframeを停止
+  document.querySelectorAll('#m-media iframe').forEach(function(f){ f.src = f.src; });
 }
 document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModalBtn(); });
 
@@ -248,7 +309,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModa
 
 /* ---- フッター描画 ---- */
 document.getElementById('footer-content').innerHTML =
-  '<p>&copy; '+CONFIG.copyYear+' '+CONFIG.name+'. All rights reserved.</p>';
+  '<p>&copy; '+CONFIG.copyYear+' '+CONFIG.nameEn+'. All rights reserved.</p>';
 
 /* ---- ハンバーガーメニュー ---- */
 function toggleMenu(){
@@ -265,7 +326,8 @@ document.addEventListener('contextmenu', function(e){ if(e.target.tagName==='IMG
 document.addEventListener('dragstart',   function(e){ if(e.target.tagName==='IMG') e.preventDefault(); });
 (function(){
   var s = document.createElement('style');
-  s.textContent = 'img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;pointer-events:none} .work-card,.modal-media,a,.sl-prev,.sl-next,.sl-dot{pointer-events:auto}';
+  s.textContent = 'img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;pointer-events:none}'
+    + ' .work-card,.modal-media,a,.sl-prev,.sl-next,.sl-dot{pointer-events:auto}';
   document.head.appendChild(s);
 })();
 
