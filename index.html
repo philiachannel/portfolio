@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Python・VBA・GAS・Claudeによる業務自動化のフリーランスエンジニアのポートフォリオ">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Portfolio</a>
+  <ul class="nav-links" id="nav-links"></ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+  <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu"></div>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay" id="hero-overlay"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Freelance Engineer</p>
+      <h1 class="hero-name">業務自動化の<br><span>専門家</span></h1>
+      <p class="hero-sub">Python・VBA・GAS・Claudeを使って、<br>面倒な繰り返し作業を解決します。</p>
+      <div class="hero-tags">
+        <span class="hero-tag">Python</span>
+        <span class="hero-tag">VBA</span>
+        <span class="hero-tag">GAS</span>
+        <span class="hero-tag">Claude</span>
+        <span class="hero-tag">業務自動化</span>
+      </div>
+      <div>
+        <!-- <a href="#works" class="btn">作品を見る</a> -->
+        <a href="#works" class="btn btn-primary">作品を見る</a>
+        <a href="#contact" class="btn btn-outline">連絡する</a>
+      </div>
+    </div>
+    <!-- 透明度スライダー（開発・調整用。本番では削除してもOK） -->
+    <div class="hero-opacity-ctrl">
+      <label for="opacity-slider">背景の暗さ：<span id="opacity-label">55%</span></label>
+      <input type="range" id="opacity-slider" min="0" max="1" step="0.05" value="0.55">
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile">
+    <div class="inner">
+      <p class="sec-label">About</p>
+      <h2 class="sec-title">プロフィール</h2>
+      <div class="sec-divider"></div>
+      <div id="profile-content"></div>
+    </div>
+  </section>
+
+  <!-- SKILL -->
+  <section id="skill">
+    <div class="inner">
+      <p class="sec-label">Skills</p>
+      <h2 class="sec-title">スキル</h2>
+      <div class="sec-divider"></div>
+      <div class="skill-tabs">
+        <button class="skill-tab active" onclick="switchSkillTab('languages',this)">言語</button>
+        <button class="skill-tab" onclick="switchSkillTab('tools',this)">ツール</button>
+        <button class="skill-tab" onclick="switchSkillTab('platforms',this)">プラットフォーム</button>
+      </div>
+      <div id="skill-content"></div>
+    </div>
+  </section>
+
+  <!-- STRENGTHS & HOBBIES -->
+  <section id="strengths">
+    <div class="inner">
+      <div class="sh-grid">
+        <div>
+          <p class="sec-label">Strengths</p>
+          <h2 class="sec-title">特技</h2>
+          <div class="sec-divider"></div>
+          <div id="strengths-content"></div>
+        </div>
+        <div>
+          <p class="sec-label">Hobbies</p>
+          <h2 class="sec-title">趣味</h2>
+          <div class="sec-divider"></div>
+          <div id="hobbies-content"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="history">
+    <div class="inner">
+      <p class="sec-label">History</p>
+      <h2 class="sec-title">ヒストリー</h2>
+      <div class="sec-divider"></div>
+      <div id="history-content"></div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="inner">
+      <p class="sec-label">Works</p>
+      <h2 class="sec-title">作品一覧</h2>
+      <div class="sec-divider"></div>
+      <div id="works-filter" class="works-nav"></div>
+      <div class="works-grid" id="works-grid"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="inner">
+      <p class="sec-label">Contact</p>
+      <h2 class="sec-title">連絡先</h2>
+      <div class="sec-divider"></div>
+      <div id="contact-content"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="footer-content"></footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="work-badge" id="m-badge"></div>
+        <div style="font-size:18px;font-weight:700;margin-top:.3rem" id="m-title"></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:.2rem" id="m-date"></div>
+      </div>
+      <button class="modal-close" onclick="closeModalBtn()">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-media" id="m-media"></div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">フローチャート</div>
+        <div class="flow" id="m-flow"></div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">説明</div>
+        <div class="modal-desc" id="m-desc"></div>
+      </div>
+      <div class="modal-sec">
+        <div class="modal-sec-label">使用言語・ツール</div>
+        <div class="modal-tags" id="m-tags"></div>
+      </div>
+      <a href="#" class="modal-link" id="m-link" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        GitHubで見る
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
