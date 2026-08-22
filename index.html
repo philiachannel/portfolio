@@ -26,7 +26,23 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
+
+    <!-- キャラクターレイヤー（オーバーレイの下に置く） -->
+    <div class="char-wrap">
+      <!-- ② 後髪 -->
+      <img id="char-hair-b" src="images/character/char-hair-b1.png" alt="" class="char-layer" aria-hidden="true">
+      <!-- ③ 顔・体 -->
+      <img src="images/character/char-bg.png" alt="" class="char-layer" aria-hidden="true">
+      <!-- ④ 目 -->
+      <img id="char-eye-open"  src="images/character/char-eye-open.png"  alt="" class="char-layer" aria-hidden="true">
+      <img id="char-eye-close" src="images/character/char-eye-close.png" alt="" class="char-layer char-eye-close" aria-hidden="true">
+      <!-- ⑤ 前髪 -->
+      <img id="char-hair-f" src="images/character/char-hair-f1.png" alt="" class="char-layer" aria-hidden="true">
+    </div>
+
+    <!-- 暗さオーバーレイ（全レイヤーに小なる） -->
     <div class="hero-overlay" id="hero-overlay"></div>
+
     <div class="hero-inner">
       <p class="hero-eyebrow">Freelance Engineer</p>
       <h1 class="hero-name">業務自動化の<br><span>専門家</span></h1>
@@ -60,6 +76,21 @@
       <h2 class="sec-title">プロフィール</h2>
       <div class="sec-divider"></div>
       <div id="profile-content"></div>
+    </div>
+  </section>
+
+  <!-- SERVICE -->
+  <section id="service">
+    <div class="inner">
+      <p class="sec-label">Services</p>
+      <h2 class="sec-title">事業内容</h2>
+      <div class="sec-divider"></div>
+      <!-- PC: 横並び / スマホ: スワイプ式 -->
+      <div class="svc-track-wrap">
+        <div class="svc-track" id="svc-track"></div>
+      </div>
+      <!-- スマホ用ドット -->
+      <div class="svc-dots" id="svc-dots"></div>
     </div>
   </section>
 
