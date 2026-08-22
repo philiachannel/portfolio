@@ -20,12 +20,29 @@ const CONFIG = {
   crowdworksId: '5151248',
   coconalaId:   '3578031',
 
+  /* ---- 事業内容画像 ---- */
+  /* src: 画像パス、alt: 説明文 */
+  services: [
+    { src: 'images/service/service1.png', alt: 'システム開発' },
+    { src: 'images/service/service2.png', alt: '業務効率化' },
+    { src: 'images/service/service3.png', alt: 'プログラミング講習' },
+    /* 画像を追加する場合はここに */
+  ],
+
+  /* ---- キャラクターアニメーション ---- */
+  charAnim: {
+    hairInterval:   180,   // 髪の画像切替間隔（ミリ秒）※小さいほど速い
+    blinkInterval:  5000,  // 瞬きの間隔（ミリ秒）
+    blinkDuration:  250,   // 目を閉じている時間（ミリ秒）
+  },
+
   /* ---- ヒーロー背景の初期透明度（0〜1） ---- */
   heroOverlay: 0.55,
 
   /* ---- ナビゲーションメニュー ---- */
   navItems: [
     { label: 'プロフィール', href: '#profile'   },
+    { label: '事業内容',   href: '#service'   },
     { label: 'スキル',       href: '#skill'     },
     { label: '特技・趣味',   href: '#strengths' },
     { label: 'ヒストリー',   href: '#history'   },
@@ -127,16 +144,18 @@ const CONFIG = {
     {
       badges:  ['Python'],
       title:   'AI秘書',
-      date:    '2026年04月',
+      date:    '2026年04月～2026年7月',
       media: [
-         {type:'image', src:'images/work/ai_secretary/01.png'},
-         {type:'image', src:'images/work/ai_secretary/02.png'},
-         {type:'youtube', src:'3jOSJ2cEcbA'},
-         {type:'youtube', src:'W2LQ7bQ9jbQ'},
+        {type:'image', src:'images/work/ai_secretary/01.png'},
+        {type:'image', src:'images/work/ai_secretary/02.png'},
+        {type:'image', src:'images/work/ai_secretary/03.png'},
+        {type:'image', src:'images/work/ai_secretary/04.png'},
+        {type:'youtube', src:'3jOSJ2cEcbA'},
+        {type:'youtube', src:'W2LQ7bQ9jbQ'},
       ],
-      flow:    ['Excelデータ読込', 'データ集計・加工', 'PDFレポート生成', 'メール自動送信'],
-      desc:    '毎月手作業で行っていたExcelデータの集計・PDF化・メール送信をPythonで完全自動化。作業時間を月5時間→15分に短縮。定型フォーマットへの対応、複数部署への自動配信も実現した。',
-      tags:    ['Python', 'openpyxl', 'reportlab', 'smtplib'],
+      flow:    ['応答文生成', '音声生成', '音声解析', 'キャラクター同期', '読み上げ'],
+      desc:    'AIに顔と声を与えるマスコットアプリです。\nAIと肩を並べて仕事をするようになり、ビジネスパートナーとも呼べる存在になりました。\n「一緒に仕事をするなら、もっと親近感のわく存在にしたい」が制作のきっかけです。\nClaudeやGeminiの応答文をリップシンクしながら読み上げます。',
+      tags:    ['Python', 'Claude', 'Gemini', 'Live2DCubismSDK', 'VOICEVOX'],
       github:  'work-report',
     },
     {
