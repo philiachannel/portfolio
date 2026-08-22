@@ -5,6 +5,39 @@
 
 const GH_BASE = 'https://github.com/' + CONFIG.githubUser + '/';
 
+/* ---- キャラクターアニメーション ---- */
+(function(){
+  /* 髪アニメ: 1→2→3→2→1→2→3... のシーケンス */
+  var hairSeq = [1, 2, 3, 2]; // 1始まり、末尾の2から次ループの1へ繋がる
+  var hairIdx = 0;
+  var hairB = document.getElementById('char-hair-b');
+  var hairF = document.getElementById('char-hair-f');
+
+  if(hairB && hairF){
+    setInterval(function(){
+      hairIdx = (hairIdx + 1) % hairSeq.length;
+      var n = hairSeq[hairIdx];
+      hairB.src = 'images/character/char-hair-b' + n + '.png';
+      hairF.src = 'images/character/char-hair-f' + n + '.png';
+    }, CONFIG.charAnim.hairInterval);
+  }
+
+  /* 瞬きアニメ */
+  var eyeOpen  = document.getElementById('char-eye-open');
+  var eyeClose = document.getElementById('char-eye-close');
+
+  if(eyeOpen && eyeClose){
+    setInterval(function(){
+      eyeOpen.style.opacity  = '0';
+      eyeClose.style.opacity = '1';
+      setTimeout(function(){
+        eyeOpen.style.opacity  = '1';
+        eyeClose.style.opacity = '0';
+      }, CONFIG.charAnim.blinkDuration);
+    }, CONFIG.charAnim.blinkInterval);
+  }
+})();
+
 /* ---- ナビゲーション ---- */
 (function(){
   const nav    = document.getElementById('nav-links');
@@ -33,6 +66,70 @@ const GH_BASE = 'https://github.com/' + CONFIG.githubUser + '/';
     const v = parseFloat(this.value);
     overlay.style.background = 'rgba(10,20,50,' + v + ')';
     label.textContent = Math.round(v * 100) + '%';
+  });
+})();
+
+/* ---- 事業内容描画（PC: 横並びホバー拡大 / スマホ: スワイプ式） ---- */
+(function(){
+  var track = document.getElementById('svc-track');
+  var dotsEl = document.getElementById('svc-dots');
+  if(!track || !CONFIG.services || CONFIG.services.length === 0) return;
+
+  /* 画像カード生成 */
+  CONFIG.services.forEach(function(svc, i){
+    var div = document.createElement('div');
+    div.className = 'svc-item';
+    var img = document.createElement('img');
+    img.src = svc.src;
+    img.alt = svc.alt;
+    div.appendChild(img);
+    track.appendChild(div);
+
+    /* スマホ用ドット */
+    var dot = document.createElement('span');
+    dot.className = 'svc-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = function(){ svcGoTo(i); };
+    dotsEl.appendChild(dot);
+  });
+
+  /* スマホ用スワイプ */
+  var curIdx  = 0;
+  var startX  = 0;
+  var isDrag  = false;
+
+  function svcGoTo(idx){
+    var items  = track.querySelectorAll('.svc-item');
+    var dots   = dotsEl.querySelectorAll('.svc-dot');
+    if(idx < 0) idx = 0;
+    if(idx >= items.length) idx = items.length - 1;
+    curIdx = idx;
+    var itemW  = items[0].offsetWidth + 20; /* gap=1.25rem≈20px */
+    track.style.transform = 'translateX(-' + (itemW * curIdx) + 'px)';
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === curIdx); });
+  }
+
+  /* タッチスワイプ */
+  track.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    isDrag = true;
+  }, {passive:true});
+  track.addEventListener('touchend', function(e){
+    if(!isDrag) return;
+    var diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40) svcGoTo(curIdx + (diff > 0 ? 1 : -1));
+    isDrag = false;
+  }, {passive:true});
+
+  /* マウスドラッグ（PCでもドラッグ可） */
+  var mouseStartX = 0;
+  track.parentElement.addEventListener('mousedown', function(e){
+    mouseStartX = e.clientX; isDrag = true;
+  });
+  window.addEventListener('mouseup', function(e){
+    if(!isDrag) return;
+    var diff = mouseStartX - e.clientX;
+    if(Math.abs(diff) > 40) svcGoTo(curIdx + (diff > 0 ? 1 : -1));
+    isDrag = false;
   });
 })();
 
@@ -258,7 +355,7 @@ function openModal(i){
   }).join('');
   document.getElementById('m-title').textContent = w.title;
   document.getElementById('m-date').textContent  = w.date;
-  document.getElementById('m-desc').textContent  = w.desc;
+  document.getElementById('m-desc').innerHTML = w.desc.replace(/\n/g, '<br>');
 
   // media配列を構築（旧形式互換）
   var media = w.media || [];
